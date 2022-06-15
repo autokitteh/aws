@@ -1,0 +1,28 @@
+before:
+  hooks:
+    - go mod download
+builds:
+  -
+    id: awsplugind
+    binary: awsplugind
+    main: ./cmd/awsplugind
+    goos:
+      - linux
+      - darwin
+    goarch:
+      - amd64
+      - arm64
+archives:
+  - replacements:
+      darwin: Darwin
+      linux: Linux
+checksum:
+  name_template: 'checksums.txt'
+snapshot:
+  name_template: "{{ .Tag }}-next"
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
