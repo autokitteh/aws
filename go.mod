@@ -9,7 +9,38 @@ go 1.18
 // RECOMMENDED: run ./scripts/git-hooks/install.sh to make sure these do not
 // get comitted.
 
+require go.autokitteh.dev/sdk v0.10.0
+
 require (
-	github.com/aws/aws-sdk-go v1.44.34 // indirect
-	github.com/jmespath/go-jmespath v0.4.0 // indirect
+	github.com/Songmu/axslogparser v1.4.0 // indirect
+	github.com/Songmu/go-ltsv v0.0.0-20181014062614-c30af2b7b171 // indirect
+	github.com/antzucaro/matchr v0.0.0-20210222213004-b04723ef80f0 // indirect
+	github.com/autokitteh/L v0.0.0-20220603074520-0c973c85d740 // indirect
+	github.com/autokitteh/flexcall v0.0.0-20220522011731-56eaad787001 // indirect
+	github.com/autokitteh/svc v0.0.0-20220522023144-62ab8572aa2a // indirect
+	github.com/cpuguy83/go-md2man/v2 v2.0.1 // indirect
+	github.com/envoyproxy/protoc-gen-validate v0.6.7 // indirect
+	github.com/felixge/httpsnoop v1.0.2 // indirect
+	github.com/ghodss/yaml v1.0.0 // indirect
+	github.com/golang/protobuf v1.5.2 // indirect
+	github.com/gorilla/handlers v1.5.1 // indirect
+	github.com/gorilla/mux v1.8.0 // indirect
+	github.com/grpc-ecosystem/go-grpc-middleware v1.3.0 // indirect
+	github.com/kelseyhightower/envconfig v1.4.0 // indirect
+	github.com/pkg/errors v0.9.1 // indirect
+	github.com/rs/cors v1.8.2 // indirect
+	github.com/russross/blackfriday/v2 v2.1.0 // indirect
+	github.com/urfave/cli/v2 v2.7.1 // indirect
+	go.autokitteh.dev/idl v0.10.0 // indirect
+	go.uber.org/atomic v1.9.0 // indirect
+	go.uber.org/multierr v1.6.0 // indirect
+	go.uber.org/zap v1.21.0 // indirect
+	golang.org/x/exp v0.0.0-20220518171630-0b5c67f07fdf // indirect
+	golang.org/x/net v0.0.0-20220421235706-1d1ef9303861 // indirect
+	golang.org/x/sys v0.0.0-20220520151302-bc2c85ada10a // indirect
+	golang.org/x/text v0.3.7 // indirect
+	google.golang.org/genproto v0.0.0-20220519153652-3a47de7e79bd // indirect
+	google.golang.org/grpc v1.46.2 // indirect
+	google.golang.org/protobuf v1.28.0 // indirect
+	gopkg.in/yaml.v2 v2.4.0 // indirect
 )
