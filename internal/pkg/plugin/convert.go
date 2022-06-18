@@ -13,6 +13,10 @@ func ConvertFromAWS(pathElems []string, src reflect.Value) (*apivalues.Value, er
 
 	switch t := src.Type(); t.Kind() {
 	case reflect.Ptr:
+		if src.IsNil() {
+			return apivalues.None, nil
+		}
+
 		return ConvertFromAWS(pathElems, src.Elem())
 	case reflect.Bool:
 		return apivalues.Boolean(src.Interface().(bool)), nil
@@ -27,8 +31,12 @@ func ConvertFromAWS(pathElems []string, src reflect.Value) (*apivalues.Value, er
 	case reflect.Int8:
 		return apivalues.Integer(int64(src.Interface().(int8))), nil
 	case reflect.String:
-		return apivalues.String(src.Interface().(string)), nil
+		return apivalues.String(src.Convert(reflect.TypeOf("")).Interface().(string)), nil
 	case reflect.Slice:
+		if src.IsNil() {
+			return apivalues.None, nil
+		}
+
 		vs := make([]*apivalues.Value, src.Len())
 		for i := 0; i < src.Len(); i++ {
 			var err error
@@ -44,6 +52,11 @@ func ConvertFromAWS(pathElems []string, src reflect.Value) (*apivalues.Value, er
 		m := make(map[string]*apivalues.Value, src.NumField())
 		for fi := 0; fi < src.NumField(); fi++ {
 			ft, fv := t.Field(fi), src.Field(fi)
+
+			// TODO: Include metadata.
+			if ft.Name == "ResultMetadata" {
+				continue
+			}
 
 			if !ft.IsExported() {
 				continue

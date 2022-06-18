@@ -9,18 +9,21 @@ import (
 	"go.autokitteh.dev/sdk/pluginimpl"
 )
 
-func importServiceMethods(
-	client interface{}, // only used to build the plugin, not actually used for connecting.
-) map[string]pluginimpl.PluginMethodFunc {
-	t := reflect.TypeOf(client)
-	if t.Kind() != reflect.Ptr || t.Elem().Kind() != reflect.Struct {
+func importServiceMethods(connect interface{}) map[string]pluginimpl.PluginMethodFunc {
+	connectv, connectt := reflect.ValueOf(connect), reflect.TypeOf(connect)
+	if connectt.NumOut() != 1 {
+		panic("connect method must return only the client")
+	}
+
+	clientt := connectt.Out(0)
+	if clientt.Kind() != reflect.Ptr || clientt.Elem().Kind() != reflect.Struct {
 		panic("client is not a pointer to a struct")
 	}
 
-	methods := make(map[string]pluginimpl.PluginMethodFunc, t.NumMethod())
+	methods := make(map[string]pluginimpl.PluginMethodFunc, clientt.NumMethod())
 
-	for mi := 0; mi < t.NumMethod(); mi++ {
-		m := t.Method(mi)
+	for mi := 0; mi < clientt.NumMethod(); mi++ {
+		m := clientt.Method(mi)
 
 		methods[m.Name] = func(
 			ctx context.Context,
@@ -57,10 +60,12 @@ func importServiceMethods(
 				return nil, err
 			}
 
-			client := ec2Client()
-			clientv := reflect.ValueOf(client)
+			connectrets := connectv.Call([]reflect.Value{reflect.ValueOf(awsConfig)})
+			if len(connectrets) != 1 {
+				return nil, fmt.Errorf("new client returned invalid values")
+			}
 
-			method := clientv.MethodByName(name)
+			method := connectrets[0].MethodByName(name)
 
 			retvs := method.Call([]reflect.Value{
 				reflect.ValueOf(ctx),
@@ -93,11 +98,8 @@ func importServiceMethods(
 	return methods
 }
 
-func importService(
-	name string,
-	client interface{}, // only used to build the plugin, not actually used for connecting.
-) *pluginimpl.PluginMember {
-	methods := importServiceMethods(client)
+func importService(name string, connect interface{}) *pluginimpl.PluginMember {
+	methods := importServiceMethods(connect)
 
 	return pluginimpl.NewLazyValueMember(
 		fmt.Sprintf("%s service API", name),

@@ -27,10 +27,8 @@ var (
 			ID:  "aws",
 			Doc: "AWS SDK Plugin",
 			Members: map[string]*pluginimpl.PluginMember{
-				"ec2": importService("EC2", &ec2.Client{}),
+				"ec2": importService("EC2", ec2.NewFromConfig),
 			},
 		}
 	}
 )
-
-func ec2Client() *ec2.Client { return ec2.NewFromConfig(awsConfig) }

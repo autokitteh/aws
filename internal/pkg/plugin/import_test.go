@@ -1,4 +1,4 @@
-//go:build unit
+//go:build real
 
 package plugin
 
@@ -7,13 +7,20 @@ import (
 	"testing"
 
 	"github.com/aws/aws-sdk-go-v2/service/ec2"
+	"github.com/davecgh/go-spew/spew"
 	"github.com/stretchr/testify/assert"
 
 	"go.autokitteh.dev/sdk/api/apivalues"
 )
 
+var actualTestRequestValue = apivalues.DictFromMap(
+	map[string]*apivalues.Value{
+		"MaxResults": apivalues.Integer(100),
+	},
+)
+
 func TestImportService(t *testing.T) {
-	ms := importServiceMethods(&ec2.Client{})
+	ms := importServiceMethods(ec2.NewFromConfig)
 	assert.NotNil(t, ms)
 
 	m, ok := ms["DescribeVpcs"]
@@ -24,10 +31,16 @@ func TestImportService(t *testing.T) {
 	v, err := m(
 		context.Background(),
 		"DescribeVpcs",
-		[]*apivalues.Value{testRequestValue},
+		[]*apivalues.Value{actualTestRequestValue},
 		nil,
 		nil,
 	)
-	assert.NoError(t, err)
+	if !assert.NoError(t, err) {
+		return
+	}
+
 	assert.NotNil(t, v)
+
+	// TODO: actually check if value is ok.
+	spew.Dump(v)
 }

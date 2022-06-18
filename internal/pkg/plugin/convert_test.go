@@ -16,7 +16,7 @@ import (
 
 var testRequestValue = apivalues.DictFromMap(
 	map[string]*apivalues.Value{
-		"DryRun":     apivalues.Boolean(true),
+		"DryRun":     apivalues.Boolean(false),
 		"NextToken":  apivalues.String("meow"),
 		"MaxResults": apivalues.Integer(42),
 		"VpcIds":     apivalues.List(apivalues.String("first"), apivalues.String("second")),
@@ -33,7 +33,7 @@ var testRequestValue = apivalues.DictFromMap(
 )
 
 var testRequest = ec2.DescribeVpcsInput{
-	DryRun:     aws.Bool(true),
+	DryRun:     aws.Bool(false),
 	MaxResults: aws.Int32(42),
 	NextToken:  aws.String("meow"),
 	VpcIds:     []string{"first", "second"},
@@ -72,3 +72,5 @@ func TestConvertToAWS(t *testing.T) {
 
 	assert.Equal(t, testRequest, dvi)
 }
+
+// TODO: TestConvetFromAWS
