@@ -17,6 +17,6 @@ func init() {
 func main() {
 	pluginsvc.Run(
 		&pluginsvc.Version{Version: version, Commit: commit, Date: date},
-		plugin.Plugin,
+		plugin.NewPlugin(),
 	)
 }
