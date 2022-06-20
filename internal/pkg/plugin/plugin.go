@@ -54,12 +54,12 @@ var (
 			return apivalues.Struct(
 				apivalues.Symbol("aws_credentials"),
 				map[string]*apivalues.Value{
-					"AccessKeyID":     apivalues.String(creds.AccessKeyID),
-					"SecretAccessKey": apivalues.String(creds.SecretAccessKey),
-					"SessionToken":    apivalues.String(creds.SessionToken),
-					"Source":          apivalues.String(creds.Source),
-					"CanExpire":       apivalues.Boolean(creds.CanExpire),
-					"Expires":         apivalues.Time(creds.Expires),
+					"access_key_id":     apivalues.String(creds.AccessKeyID),
+					"secret_access_key": apivalues.String(creds.SecretAccessKey),
+					"session_token":     apivalues.String(creds.SessionToken),
+					"source":            apivalues.String(creds.Source),
+					"can_expire":        apivalues.Boolean(creds.CanExpire),
+					"expires":           apivalues.Time(creds.Expires),
 				},
 			), nil
 		},
