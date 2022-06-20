@@ -15,7 +15,7 @@ require (
 	github.com/aws/aws-sdk-go-v2/service/ec2 v1.45.1
 	github.com/davecgh/go-spew v1.1.1
 	github.com/stretchr/testify v1.7.2
-	go.autokitteh.dev/sdk v0.10.0
+	go.autokitteh.dev/sdk v0.12.0
 )
 
 require (
@@ -49,7 +49,7 @@ require (
 	github.com/rs/cors v1.8.2 // indirect
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
 	github.com/urfave/cli/v2 v2.7.1 // indirect
-	go.autokitteh.dev/idl v0.10.0 // indirect
+	go.autokitteh.dev/idl v0.12.0 // indirect
 	go.uber.org/atomic v1.9.0 // indirect
 	go.uber.org/multierr v1.6.0 // indirect
 	go.uber.org/zap v1.21.0 // indirect
