@@ -5,6 +5,8 @@ import (
 	"reflect"
 	"strings"
 
+	"github.com/iancoleman/strcase"
+
 	"go.autokitteh.dev/sdk/api/apivalues"
 )
 
@@ -63,8 +65,9 @@ func ConvertFromAWS(pathElems []string, src reflect.Value) (*apivalues.Value, er
 			}
 
 			var err error
-			if m[ft.Name], err = ConvertFromAWS(
-				append(pathElems, ft.Name),
+			ftName := strcase.ToSnake(ft.Name)
+			if m[ftName], err = ConvertFromAWS(
+				append(pathElems, strcase.ToSnake(ftName)),
 				fv,
 			); err != nil {
 				return nil, err
@@ -133,7 +136,9 @@ func ConvertToAWS(pathElems []string, dst reflect.Value, in *apivalues.Value) er
 					continue
 				}
 
-				inv, ok := indictm[ft.Name]
+				ftName := strcase.ToSnake(ft.Name)
+
+				inv, ok := indictm[ftName]
 				if !ok {
 					// no such field in input, leave at zero value
 					continue
@@ -148,7 +153,7 @@ func ConvertToAWS(pathElems []string, dst reflect.Value, in *apivalues.Value) er
 					return fmt.Errorf("%q: not a ptr, array, or slice", path)
 				}
 
-				if err := ConvertToAWS(append(pathElems, ft.Name), fv, inv); err != nil {
+				if err := ConvertToAWS(append(pathElems, ftName), fv, inv); err != nil {
 					return err
 				}
 			}

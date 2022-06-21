@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"reflect"
 
+	"github.com/iancoleman/strcase"
+
 	"go.autokitteh.dev/sdk/api/apivalues"
 	"go.autokitteh.dev/sdk/pluginimpl"
 )
@@ -25,7 +27,9 @@ func importServiceMethods(connect interface{}) map[string]pluginimpl.PluginMetho
 	for mi := 0; mi < clientt.NumMethod(); mi++ {
 		m := clientt.Method(mi)
 
-		methods[m.Name] = func(
+		mName := strcase.ToSnake(m.Name)
+
+		methods[mName] = func(
 			ctx context.Context,
 			name string,
 			args []*apivalues.Value,
@@ -46,12 +50,12 @@ func importServiceMethods(connect interface{}) map[string]pluginimpl.PluginMetho
 
 			// Expecting self, context, params, optFns.
 			if mt.NumIn() != 4 {
-				panic(fmt.Errorf("method %q numin %d != 4", m.Name, mt.NumIn()))
+				panic(fmt.Errorf("method %q numin %d != 4", mName, mt.NumIn()))
 			}
 
 			pt := mt.In(2)
 			if pt.Kind() != reflect.Ptr || pt.Elem().Kind() != reflect.Struct {
-				panic(fmt.Errorf("method %q param invalid type: %v", m.Name, pt))
+				panic(fmt.Errorf("method %q param invalid type: %v", mName, pt))
 			}
 
 			paramsValue := reflect.New(pt.Elem())
@@ -65,7 +69,7 @@ func importServiceMethods(connect interface{}) map[string]pluginimpl.PluginMetho
 				return nil, fmt.Errorf("new client returned invalid values")
 			}
 
-			method := connectrets[0].MethodByName(name)
+			method := connectrets[0].MethodByName(m.Name) // must be original name.
 
 			retvs := method.Call([]reflect.Value{
 				reflect.ValueOf(ctx),

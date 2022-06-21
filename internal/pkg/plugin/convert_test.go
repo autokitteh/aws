@@ -16,17 +16,17 @@ import (
 
 var testRequestValue = apivalues.DictFromMap(
 	map[string]*apivalues.Value{
-		"DryRun":     apivalues.Boolean(false),
-		"NextToken":  apivalues.String("meow"),
-		"MaxResults": apivalues.Integer(42),
-		"VpcIds":     apivalues.List(apivalues.String("first"), apivalues.String("second")),
-		"Filters": apivalues.List(
+		"dry_run":     apivalues.Boolean(false),
+		"next_token":  apivalues.String("meow"),
+		"max_results": apivalues.Integer(42),
+		"vpc_ids":     apivalues.List(apivalues.String("first"), apivalues.String("second")),
+		"filters": apivalues.List(
 			apivalues.DictFromMap(map[string]*apivalues.Value{
-				"Name":   apivalues.String("gizmo"),
-				"Values": apivalues.List(apivalues.String("woof")),
+				"name":   apivalues.String("gizmo"),
+				"values": apivalues.List(apivalues.String("woof")),
 			}),
 			apivalues.DictFromMap(map[string]*apivalues.Value{
-				"Name": apivalues.String("zumi"),
+				"name": apivalues.String("zumi"),
 			}),
 		),
 	},

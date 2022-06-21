@@ -23,14 +23,14 @@ func TestImportService(t *testing.T) {
 	ms := importServiceMethods(ec2.NewFromConfig)
 	assert.NotNil(t, ms)
 
-	m, ok := ms["DescribeVpcs"]
+	m, ok := ms["describe_vpcs"]
 	if !assert.True(t, ok) {
 		return
 	}
 
 	v, err := m(
 		context.Background(),
-		"DescribeVpcs",
+		"describe_vpcs",
 		[]*apivalues.Value{actualTestRequestValue},
 		nil,
 		nil,
