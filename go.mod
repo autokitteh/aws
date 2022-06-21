@@ -15,16 +15,16 @@ require (
 	github.com/aws/aws-sdk-go-v2/service/ec2 v1.45.1
 	github.com/davecgh/go-spew v1.1.1
 	github.com/stretchr/testify v1.7.2
-	go.autokitteh.dev/sdk v0.12.0
+	go.autokitteh.dev/sdk v0.12.1
 )
 
 require (
 	github.com/Songmu/axslogparser v1.4.0 // indirect
 	github.com/Songmu/go-ltsv v0.0.0-20181014062614-c30af2b7b171 // indirect
 	github.com/antzucaro/matchr v0.0.0-20210222213004-b04723ef80f0 // indirect
-	github.com/autokitteh/L v0.0.0-20220603074520-0c973c85d740 // indirect
+	github.com/autokitteh/L v0.0.0-20220621043148-4d56abbbcc92 // indirect
 	github.com/autokitteh/flexcall v0.0.0-20220522011731-56eaad787001 // indirect
-	github.com/autokitteh/svc v0.0.0-20220522023144-62ab8572aa2a // indirect
+	github.com/autokitteh/svc v0.0.0-20220621043313-de83b126137c // indirect
 	github.com/aws/aws-sdk-go-v2/credentials v1.12.5 // indirect
 	github.com/aws/aws-sdk-go-v2/feature/ec2/imds v1.12.6 // indirect
 	github.com/aws/aws-sdk-go-v2/internal/configsources v1.1.12 // indirect
